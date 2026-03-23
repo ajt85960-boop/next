@@ -1,6 +1,12 @@
+"use client";
+
 import { Box, Button, Stack, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
     <Box
       sx={{
@@ -13,14 +19,15 @@ export default function Home() {
     >
       <Stack spacing={2} alignItems="center">
         <Typography variant="h4" sx={{ fontWeight: 700 }}>
-          数据标注平台
+          {t("home.title")}
         </Typography>
         <Typography color="text.secondary">
-          使用 Session + Redis 管理登录态
+          {t("home.subtitle")}
         </Typography>
+        <LanguageSwitcher />
         <Stack direction="row" spacing={2}>
           <Button href="/login" variant="contained">
-            去登录
+            {t("home.goLogin")}
           </Button>
         </Stack>
       </Stack>

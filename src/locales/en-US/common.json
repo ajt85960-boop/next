@@ -1,0 +1,47 @@
+{
+  "home": {
+    "title": "Data Annotation Platform",
+    "subtitle": "Manage login state with Session + Redis",
+    "goLogin": "Go to Login"
+  },
+  "login": {
+    "title": "Login",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Login",
+    "submitting": "Signing in...",
+    "goRegister": "No account? Register",
+    "failed": "Login failed"
+  },
+  "register": {
+    "title": "Create Account",
+    "subtitle": "Choose a role and login right after registration",
+    "username": "Username",
+    "password": "Password",
+    "role": "Role",
+    "roleAdmin": "Admin (Highest)",
+    "roleAnnotator": "Annotator (Lowest)",
+    "roleManager": "Project Manager (Middle)",
+    "submit": "Register",
+    "submitting": "Registering...",
+    "goLogin": "Already have an account? Login",
+    "success": "Registered successfully, redirecting to login...",
+    "failed": "Registration failed"
+  },
+  "layout": {
+    "appTitle": "SaaS Platform",
+    "navTitle": "Navigation",
+    "console": "Console",
+    "logout": "Logout"
+  },
+  "menu": {
+    "overview": "Overview",
+    "devices": "Device Management",
+    "annotation": "Data Annotation",
+    "people": "User Management"
+  },
+  "lang": {
+    "zh": "中文",
+    "en": "English"
+  }
+}

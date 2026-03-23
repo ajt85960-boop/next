@@ -1,6 +1,7 @@
 "use client";
 
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
+import "@/i18n";
 
 const theme = createTheme({
   shape: {

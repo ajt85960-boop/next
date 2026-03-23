@@ -13,9 +13,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<"ADMIN" | "MANAGER" | "ANNOTATOR">(
@@ -40,11 +43,11 @@ export default function RegisterPage() {
     setLoading(false);
 
     if (!response.ok) {
-      setError(data.message ?? "注册失败");
+      setError(data.message ?? t("register.failed"));
       return;
     }
 
-    setSuccess("注册成功，即将跳转登录页...");
+    setSuccess(t("register.success"));
     setTimeout(() => {
       router.push("/login");
     }, 900);
@@ -63,24 +66,27 @@ export default function RegisterPage() {
     >
       <Card sx={{ width: 420, borderRadius: 4 }}>
         <CardContent sx={{ p: 4 }}>
+          <Stack direction="row" justifyContent="flex-end" sx={{ mb: 2 }}>
+            <LanguageSwitcher />
+          </Stack>
           <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
-            注册账号
+            {t("register.title")}
           </Typography>
           <Typography color="text.secondary" sx={{ mb: 3 }}>
-            请选择角色，注册后可直接登录
+            {t("register.subtitle")}
           </Typography>
           <Stack component="form" spacing={2} onSubmit={onSubmit}>
             {!!error && <Alert severity="error">{error}</Alert>}
             {!!success && <Alert severity="success">{success}</Alert>}
             <TextField
-              label="用户名"
+              label={t("register.username")}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
               fullWidth
             />
             <TextField
-              label="密码"
+              label={t("register.password")}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -89,7 +95,7 @@ export default function RegisterPage() {
             />
             <TextField
               select
-              label="角色"
+              label={t("register.role")}
               value={role}
               onChange={(e) =>
                 setRole(e.target.value as "ADMIN" | "MANAGER" | "ANNOTATOR")
@@ -97,15 +103,15 @@ export default function RegisterPage() {
               fullWidth
               SelectProps={{ native: true }}
             >
-              <option value="ADMIN">管理员（最高权限）</option>
-              <option value="ANNOTATOR">标注员（最低权限）</option>
-              <option value="MANAGER">项目经理（第二权限）</option>
+              <option value="ADMIN">{t("register.roleAdmin")}</option>
+              <option value="ANNOTATOR">{t("register.roleAnnotator")}</option>
+              <option value="MANAGER">{t("register.roleManager")}</option>
             </TextField>
             <Button type="submit" variant="contained" disabled={loading}>
-              {loading ? "注册中..." : "注册"}
+              {loading ? t("register.submitting") : t("register.submit")}
             </Button>
             <Button component={Link} href="/login" variant="text">
-              已有账号？去登录
+              {t("register.goLogin")}
             </Button>
           </Stack>
         </CardContent>

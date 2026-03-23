@@ -13,9 +13,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,7 +39,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (!response.ok) {
-      setError(data.message ?? "登录失败");
+      setError(data.message ?? t("login.failed"));
       return;
     }
 
@@ -65,20 +68,23 @@ export default function LoginPage() {
     >
       <Card sx={{ width: 420, borderRadius: 4 }}>
         <CardContent sx={{ p: 4 }}>
+          <Stack direction="row" justifyContent="flex-end" sx={{ mb: 2 }}>
+            <LanguageSwitcher />
+          </Stack>
           <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
-            登录
+            {t("login.title")}
           </Typography>
           <Stack component="form" spacing={2} onSubmit={onSubmit}>
             {!!error && <Alert severity="error">{error}</Alert>}
             <TextField
-              label="用户名"
+              label={t("login.username")}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
               fullWidth
             />
             <TextField
-              label="密码"
+              label={t("login.password")}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -86,10 +92,10 @@ export default function LoginPage() {
               fullWidth
             />
             <Button type="submit" variant="contained" disabled={loading}>
-              {loading ? "登录中..." : "登录"}
+              {loading ? t("login.submitting") : t("login.submit")}
             </Button>
             <Button component={Link} href="/register" variant="text">
-              没有账号？去注册
+              {t("login.goRegister")}
             </Button>
           </Stack>
         </CardContent>

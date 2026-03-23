@@ -13,12 +13,15 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { appMenu } from "@/lib/menu";
 import { getRoleMenuModules } from "@/lib/role";
 import { useUserStore } from "@/store/user-store";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { t } = useTranslation();
   const user = useUserStore((state) => state.user);
 
   const roleModules = getRoleMenuModules(user?.role ?? "");
@@ -37,10 +40,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       >
         <Box sx={{ px: 2.5, py: 3 }}>
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            SaaS 平台
+            {t("layout.appTitle")}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            统一导航
+            {t("layout.navTitle")}
           </Typography>
         </Box>
         <List>
@@ -51,7 +54,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               href={item.path}
               selected={pathname === item.path}
             >
-              <ListItemText primary={item.label} />
+              <ListItemText primary={t(`menu.${item.module}`)} />
             </ListItemButton>
           ))}
         </List>
@@ -65,11 +68,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           sx={{ borderBottom: "1px solid #e5e7eb", bgcolor: "#ffffff" }}
         >
           <Toolbar sx={{ justifyContent: "space-between" }}>
-            <Typography variant="h6">业务控制台</Typography>
-            <Box component="form" action="/api/auth/logout" method="post">
-              <Button type="submit" variant="outlined" color="inherit">
-                退出登录
-              </Button>
+            <Typography variant="h6">{t("layout.console")}</Typography>
+            <Box sx={{ display: "flex", gap: 1.5, alignItems: "center" }}>
+              <LanguageSwitcher />
+              <Box component="form" action="/api/auth/logout" method="post">
+                <Button type="submit" variant="outlined" color="inherit">
+                  {t("layout.logout")}
+                </Button>
+              </Box>
             </Box>
           </Toolbar>
         </AppBar>
